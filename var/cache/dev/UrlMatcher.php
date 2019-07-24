@@ -8,6 +8,9 @@
 return [
     false, // $matchHost
     [ // $staticRoutes
+        '/api/connexion' => [[['_route' => 'connexion', '_controller' => 'App\\Controller\\SecuriteController::register'], null, ['POST' => 0], null, false, false, null]],
+        '/api/login' => [[['_route' => 'login', '_controller' => 'App\\Controller\\SecuriteController::login'], null, ['POST' => 0], null, false, false, null]],
+        '/api/login_check' => [[['_route' => 'api_login_check'], null, null, null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'
