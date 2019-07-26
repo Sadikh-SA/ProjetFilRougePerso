@@ -8,10 +8,10 @@
         [
             'Symfony\\Component\\Routing\\Annotation\\Route' => [
                 'path' => [
-                    '/connexion',
+                    '/register',
                 ],
                 'name' => [
-                    'connexion',
+                    'register',
                 ],
                 'methods' => [
                     [

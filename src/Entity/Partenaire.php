@@ -41,30 +41,19 @@ class Partenaire
     private $domaine;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Utilisateur", mappedBy="idParte")
+     */
+    private $utilisateurs;
+
+    /**
      * @ORM\OneToOne(targetEntity="App\Entity\Compte", inversedBy="partenaire", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $idCompte;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\SuperAdmin", inversedBy="idPartenaire")
-     */
-    private $superAdmin;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\AdminPartenaire", mappedBy="idPart")
-     */
-    private $adminPartenaires;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Profil", inversedBy="partenaires")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $idProfil;
-
     public function __construct()
     {
-        $this->adminPartenaires = new ArrayCollection();
+        $this->utilisateurs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -120,6 +109,37 @@ class Partenaire
         return $this;
     }
 
+    /**
+     * @return Collection|Utilisateur[]
+     */
+    public function getUtilisateurs(): Collection
+    {
+        return $this->utilisateurs;
+    }
+
+    public function addUtilisateur(Utilisateur $utilisateur): self
+    {
+        if (!$this->utilisateurs->contains($utilisateur)) {
+            $this->utilisateurs[] = $utilisateur;
+            $utilisateur->setIdParte($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUtilisateur(Utilisateur $utilisateur): self
+    {
+        if ($this->utilisateurs->contains($utilisateur)) {
+            $this->utilisateurs->removeElement($utilisateur);
+            // set the owning side to null (unless already changed)
+            if ($utilisateur->getIdParte() === $this) {
+                $utilisateur->setIdParte(null);
+            }
+        }
+
+        return $this;
+    }
+
     public function getIdCompte(): ?Compte
     {
         return $this->idCompte;
@@ -131,60 +151,4 @@ class Partenaire
 
         return $this;
     }
-
-    public function getSuperAdmin(): ?SuperAdmin
-    {
-        return $this->superAdmin;
-    }
-
-    public function setSuperAdmin(?SuperAdmin $superAdmin): self
-    {
-        $this->superAdmin = $superAdmin;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|AdminPartenaire[]
-     */
-    public function getAdminPartenaires(): Collection
-    {
-        return $this->adminPartenaires;
-    }
-
-    public function addAdminPartenaire(AdminPartenaire $adminPartenaire): self
-    {
-        if (!$this->adminPartenaires->contains($adminPartenaire)) {
-            $this->adminPartenaires[] = $adminPartenaire;
-            $adminPartenaire->setIdPart($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAdminPartenaire(AdminPartenaire $adminPartenaire): self
-    {
-        if ($this->adminPartenaires->contains($adminPartenaire)) {
-            $this->adminPartenaires->removeElement($adminPartenaire);
-            // set the owning side to null (unless already changed)
-            if ($adminPartenaire->getIdPart() === $this) {
-                $adminPartenaire->setIdPart(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getIdProfil(): ?Profil
-    {
-        return $this->idProfil;
-    }
-
-    public function setIdProfil(?Profil $idProfil): self
-    {
-        $this->idProfil = $idProfil;
-
-        return $this;
-    }
-
 }

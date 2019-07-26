@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,12 +26,12 @@ class Compte
     /**
      * @ORM\Column(type="integer")
      */
-    private $codeBanque;
+    private $codeBank;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $numCompte;
+    private $numComp;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -55,21 +53,6 @@ class Compte
      */
     private $partenaire;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\SuperAdmin", inversedBy="idCompte")
-     */
-    private $superAdmin;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Caissier", mappedBy="compte")
-     */
-    private $idcompte;
-
-    public function __construct()
-    {
-        $this->idcompte = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -87,26 +70,26 @@ class Compte
         return $this;
     }
 
-    public function getCodeBanque(): ?int
+    public function getCodeBank(): ?int
     {
-        return $this->codeBanque;
+        return $this->codeBank;
     }
 
-    public function setCodeBanque(int $codeBanque): self
+    public function setCodeBank(int $codeBank): self
     {
-        $this->codeBanque = $codeBanque;
+        $this->codeBank = $codeBank;
 
         return $this;
     }
 
-    public function getNumCompte(): ?string
+    public function getNumComp(): ?string
     {
-        return $this->numCompte;
+        return $this->numComp;
     }
 
-    public function setNumCompte(string $numCompte): self
+    public function setNumComp(string $numComp): self
     {
-        $this->numCompte = $numCompte;
+        $this->numComp = $numComp;
 
         return $this;
     }
@@ -159,49 +142,6 @@ class Compte
         // set the owning side of the relation if necessary
         if ($this !== $partenaire->getIdCompte()) {
             $partenaire->setIdCompte($this);
-        }
-
-        return $this;
-    }
-
-    public function getSuperAdmin(): ?SuperAdmin
-    {
-        return $this->superAdmin;
-    }
-
-    public function setSuperAdmin(?SuperAdmin $superAdmin): self
-    {
-        $this->superAdmin = $superAdmin;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Caissier[]
-     */
-    public function getIdcompte(): Collection
-    {
-        return $this->idcompte;
-    }
-
-    public function addIdcompte(Caissier $idcompte): self
-    {
-        if (!$this->idcompte->contains($idcompte)) {
-            $this->idcompte[] = $idcompte;
-            $idcompte->setCompte($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIdcompte(Caissier $idcompte): self
-    {
-        if ($this->idcompte->contains($idcompte)) {
-            $this->idcompte->removeElement($idcompte);
-            // set the owning side to null (unless already changed)
-            if ($idcompte->getCompte() === $this) {
-                $idcompte->setCompte(null);
-            }
         }
 
         return $this;

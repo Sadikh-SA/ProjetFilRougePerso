@@ -3,12 +3,10 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UtilisateurRepository")
- * @UniqueEntity(fields={"login"}, message="Cet utilisateur existe déjà")
  */
 class Utilisateur implements UserInterface
 {
@@ -34,6 +32,41 @@ class Utilisateur implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nom;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $prenom;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $tel;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $profil;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $status;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Partenaire", inversedBy="utilisateurs")
+     */
+    private $idParte;
 
     public function getId(): ?int
     {
@@ -109,7 +142,90 @@ class Utilisateur implements UserInterface
      */
     public function eraseCredentials()
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        # If you store any temporary, sensitive data on the user, clear it here
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): self
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getTel(): ?float
+    {
+        return $this->tel;
+    }
+
+    public function setTel(float $tel): self
+    {
+        $this->tel = $tel;
+
+        return $this;
+    }
+
+    public function getProfil(): ?string
+    {
+        return $this->profil;
+    }
+
+    public function setProfil(string $profil): self
+    {
+        $this->profil = $profil;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getIdParte(): ?Partenaire
+    {
+        return $this->idParte;
+    }
+
+    public function setIdParte(?Partenaire $idParte): self
+    {
+        $this->idParte = $idParte;
+
+        return $this;
     }
 }

@@ -3,6 +3,7 @@ security:
         App\Entity\Utilisateur:
             algorithm: auto
 
+
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         # used to reload user from session & other features (e.g. switch_user)
@@ -10,6 +11,7 @@ security:
             entity:
                 class: App\Entity\Utilisateur
                 property: login
+        # used to reload user from session & other features (e.g. switch_user)
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -27,7 +29,7 @@ security:
                 success_handler:          lexik_jwt_authentication.handler.authentication_success
                 failure_handler:          lexik_jwt_authentication.handler.authentication_failure
         api:
-            pattern:   ^/api
+            pattern:   ^/api/u
             stateless: true
             guard:
                 authenticators:
@@ -46,4 +48,5 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/u,       roles: IS_AUTHENTICATED_FULLY }
+
