@@ -2,52 +2,92 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Bundle\DoctrineBundle\Repository;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Partenaire;
-use App\Entity\Compte;
+use App\Form\PartenaireType;
+use App\Repository\PartenaireRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
+use Doctrine\ORM\EntityManagerInterface;
+
 
 /**
- * @Route("/api/partenaire")
+ * @Route("/partenaire")
  */
 class PartenaireController extends AbstractController
 {
+    /**
+     * @Route("/", name="partenaire_index", methods={"GET"})
+     */
+    public function index(PartenaireRepository $partenaireRepository): Response
+    {
+        return $this->render('partenaire/index.html.twig', [
+            'partenaires' => $partenaireRepository->findAll(),
+        ]);
+    }
 
     /**
-     * @Route("/inserer", name="inserer", methods={"POST"})
+     * @Route("/new", name="partenairenew", methods={"GET","POST"})
      */
+    public function ajout(Request $request, SerializerInterface $serializer, EntityManagerInterface $entityManager): Response
+    {
+        $partenaire = new Partenaire();
+        $form = $this->createForm(PartenaireType::class, $partenaire);
+        $data=json_decode($request->getContent(),true);
+        $form->submit($data);
+        //$partenaire = $serializer->deserialize($request->getContent(), Partenaire::class, 'json');
 
-     public function inserer(Request $request, EntityManagerInterface $entityManager)
-     {
-        $values = json_decode($request->getContent());
-        if (isset($values->ninea)) {
-            $partenaire = new Partenaire();
-            $partenaire->setRegCom($values->regCom)
-                   ->setNinea($values->ninea)
-                   ->setLocalisation($values->localisation)
-                   ->setDomaine($values->domaine);
-                   $idcompt=$partenaire->setIdCompte($this->getDoctrine()->getRepository(Compte::class)->find($values->idCompte));
-                   $partenaire->setIdCompte($idcompt->getIdCompte());
+            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($partenaire);
             $entityManager->flush();
+            
+            return new Response('le partenaire a été bien ajouté', Response::HTTP_CREATED);
+    
+    }
 
-            $data = [
-                'status' => 201,
-                'message' => 'L\'utilisateur a été créé'
-            ];
+    /**
+     * @Route("/{id}", name="partenaire_show", methods={"GET"})
+     */
+    public function show(Partenaire $partenaire): Response
+    {
+        return $this->render('partenaire/show.html.twig', [
+            'partenaire' => $partenaire,
+        ]);
+    }
 
-            return new JsonResponse($data, 201);
+    /**
+     * @Route("/{id}/edit", name="partenaire_edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request, Partenaire $partenaire): Response
+    {
+        $form = $this->createForm(PartenaireType::class, $partenaire);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('partenaire_index');
         }
-        $data = [
-            'status' => 500,
-            'message' => 'Vous devez renseigner les clés username et password'
-        ];
-        return new JsonResponse($data, 500);
 
-     }
+        return $this->render('partenaire/edit.html.twig', [
+            'partenaire' => $partenaire,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", name="partenaire_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, Partenaire $partenaire): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$partenaire->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($partenaire);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('partenaire_index');
+    }
 }

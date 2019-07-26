@@ -203,6 +203,6 @@ class __TwigTemplate_ff410e2ab5a049b8c87cd9bfbf25db984f727b7750de71710ba864d100e
         {{ include('@Twig/base_js.html.twig') }}
     </body>
 </html>
-", "@Twig/layout.html.twig", "/var/www/html/ProjetFilRouge/vendor/symfony/twig-bundle/Resources/views/layout.html.twig");
+", "@Twig/layout.html.twig", "/home/tamara/Bureau/ProjetFilRouge/vendor/symfony/twig-bundle/Resources/views/layout.html.twig");
     }
 }

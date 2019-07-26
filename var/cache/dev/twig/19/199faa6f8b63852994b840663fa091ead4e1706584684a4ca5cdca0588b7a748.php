@@ -198,6 +198,6 @@ class __TwigTemplate_b58723b5940b251b2017cc126954d454030d1ac453cb375a53b92eab1b3
         })|raw }}
     </div>
 {% endif %}
-", "@Twig/Exception/trace.html.twig", "/var/www/html/ProjetFilRouge/vendor/symfony/twig-bundle/Resources/views/Exception/trace.html.twig");
+", "@Twig/Exception/trace.html.twig", "/home/tamara/Bureau/ProjetFilRouge/vendor/symfony/twig-bundle/Resources/views/Exception/trace.html.twig");
     }
 }

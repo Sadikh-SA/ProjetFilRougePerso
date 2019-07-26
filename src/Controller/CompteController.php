@@ -2,46 +2,88 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Compte;
+use App\Form\CompteType;
+use App\Repository\CompteRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
- * @Route("/api/compte")
+ * @Route("/compte")
  */
 class CompteController extends AbstractController
 {
     /**
-     * @Route("/inserer", name="inserer", methods={"POST", "GET"})
+     * @Route("/", name="compte_index", methods={"GET"})
      */
-    public function inserer(Request $request, EntityManagerInterface $entityManager)
+    public function index(CompteRepository $compteRepository): Response
     {
-        $values = json_decode($request->getContent());
-        if(isset($values->numComp,$values->montant)) {
-            $compte = new Compte();
-            $compte->setNom($values->nom)
-                   ->setCodeBank($values->codeBank)
-                   ->setNumComp($values->numComp)
-                   ->setIban($values->iban)
-                   ->setBic($values->bic)
-                   ->setMontant($values->montant);
+        return $this->render('compte/index.html.twig', [
+            'comptes' => $compteRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("/new", name="comptenew", methods={"GET","POST"})
+     */
+    public function ajout(Request $request, SerializerInterface $serializer, EntityManagerInterface $entityManager): Response
+    {
+        $compte = new Compte();
+        $form = $this->createForm(CompteType::class, $compte);
+        $form->handleRequest($request);
+        $compte = $serializer->deserialize($request->getContent(), Compte::class, 'json');
+            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($compte);
             $entityManager->flush();
+            
+            return new Response('le compte a été bien ajouté', Response::HTTP_CREATED);
+    }
 
-            $data = [
-                'status' => 201,
-                'message' => 'L\'utilisateur a été créé'
-            ];
+    /**
+     * @Route("/{id}", name="compte_show", methods={"GET"})
+     */
+    public function show(Compte $compte): Response
+    {
+        return $this->render('compte/show.html.twig', [
+            'compte' => $compte,
+        ]);
+    }
 
-            return new JsonResponse($data, 201);
+    /**
+     * @Route("/{id}/edit", name="compte_edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request, Compte $compte): Response
+    {
+        $form = $this->createForm(CompteType::class, $compte);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('compte_index');
         }
-        $data = [
-            'status' => 500,
-            'message' => 'Vous devez renseigner les clés username et password'
-        ];
-        return new JsonResponse($data, 500);
+
+        return $this->render('compte/edit.html.twig', [
+            'compte' => $compte,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", name="compte_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, Compte $compte): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$compte->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($compte);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('compte_index');
     }
 }

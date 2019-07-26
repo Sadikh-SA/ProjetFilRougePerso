@@ -389,6 +389,6 @@ class __TwigTemplate_6e11901392b8f218f61af37bbd9aaba967943ca4b4b82a257fce9710b9a
 {% block body %}
     {% include '@Twig/Exception/exception.html.twig' %}
 {% endblock %}
-", "@Twig/Exception/exception_full.html.twig", "/var/www/html/ProjetFilRouge/vendor/symfony/twig-bundle/Resources/views/Exception/exception_full.html.twig");
+", "@Twig/Exception/exception_full.html.twig", "/home/tamara/Bureau/ProjetFilRouge/vendor/symfony/twig-bundle/Resources/views/Exception/exception_full.html.twig");
     }
 }

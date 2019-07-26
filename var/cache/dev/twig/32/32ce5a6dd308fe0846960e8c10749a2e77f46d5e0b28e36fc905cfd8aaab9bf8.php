@@ -98,6 +98,6 @@ class __TwigTemplate_77dda9fd77050a27e038c246fc7dca978c643a7510ef1c6e4175e8d598c
   {{ include('@Twig/Exception/trace.txt.twig', { trace: trace }, with_context = false) }}
 {% endfor %}
 {% endif %}
-", "@Twig/Exception/traces.txt.twig", "/var/www/html/ProjetFilRouge/vendor/symfony/twig-bundle/Resources/views/Exception/traces.txt.twig");
+", "@Twig/Exception/traces.txt.twig", "/home/tamara/Bureau/ProjetFilRouge/vendor/symfony/twig-bundle/Resources/views/Exception/traces.txt.twig");
     }
 }

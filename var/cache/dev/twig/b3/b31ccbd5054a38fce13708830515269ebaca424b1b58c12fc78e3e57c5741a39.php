@@ -155,6 +155,6 @@ class __TwigTemplate_d8a9037941198801e19efed68b2c6874e7fd7a0bf35bc13004cf696bcdd
         </tr>
     </tbody>
 </table>
-", "@Twig/Exception/traces_text.html.twig", "/var/www/html/ProjetFilRouge/vendor/symfony/twig-bundle/Resources/views/Exception/traces_text.html.twig");
+", "@Twig/Exception/traces_text.html.twig", "/home/tamara/Bureau/ProjetFilRouge/vendor/symfony/twig-bundle/Resources/views/Exception/traces_text.html.twig");
     }
 }
