@@ -8,10 +8,10 @@
         [
             'Symfony\\Component\\Routing\\Annotation\\Route' => [
                 'path' => [
-                    '/register',
+                    '/utilisateur/inserer',
                 ],
                 'name' => [
-                    'register',
+                    'inserer-utilisateur',
                 ],
                 'methods' => [
                     [

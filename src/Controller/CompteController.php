@@ -10,12 +10,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Compte;
 
 /**
- * @Route("/api/compte")
+ * @Route("/api")
  */
 class CompteController extends AbstractController
 {
     /**
-     * @Route("/inserer", name="inserer", methods={"POST", "GET"})
+     * @Route("/compte/inserer", name="inserer-compte", methods={"POST", "GET"})
      */
     public function inserer(Request $request, EntityManagerInterface $entityManager)
     {
@@ -44,4 +44,5 @@ class CompteController extends AbstractController
         ];
         return new JsonResponse($data, 500);
     }
+
 }

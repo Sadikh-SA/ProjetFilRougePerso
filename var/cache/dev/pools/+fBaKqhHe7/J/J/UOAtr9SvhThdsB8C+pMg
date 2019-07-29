@@ -8,10 +8,10 @@
         [
             'Symfony\\Component\\Routing\\Annotation\\Route' => [
                 'path' => [
-                    '/inserer',
+                    '/partenaire/inserer',
                 ],
                 'name' => [
-                    'inserer',
+                    'inserer-partenaire',
                 ],
                 'methods' => [
                     [

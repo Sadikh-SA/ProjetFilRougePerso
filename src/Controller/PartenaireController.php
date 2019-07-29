@@ -13,13 +13,13 @@ use App\Entity\Partenaire;
 use App\Entity\Compte;
 
 /**
- * @Route("/api/partenaire")
+ * @Route("/api")
  */
 class PartenaireController extends AbstractController
 {
 
     /**
-     * @Route("/inserer", name="inserer", methods={"POST"})
+     * @Route("/partenaire/inserer", name="inserer-partenaire", methods={"POST"})
      */
 
      public function inserer(Request $request, EntityManagerInterface $entityManager)

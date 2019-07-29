@@ -16,20 +16,20 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
-            anonymous: true
-            json_login:
-                check_path: /api/login
+        # main:
+        #     anonymous: true
+        #     json_login:
+        #         check_path: /api/login
         login:
             pattern:  ^/api/login
             stateless: true
             anonymous: true
             json_login:
-                check_path:               /api/login_check
+                check_path:               /api/login
                 success_handler:          lexik_jwt_authentication.handler.authentication_success
                 failure_handler:          lexik_jwt_authentication.handler.authentication_failure
         api:
-            pattern:   ^/api/u
+            pattern:   ^/api
             stateless: true
             guard:
                 authenticators:
@@ -48,5 +48,5 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/u,       roles: IS_AUTHENTICATED_FULLY }
-
+        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+    

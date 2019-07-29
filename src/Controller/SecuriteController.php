@@ -3,13 +3,16 @@
 namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use App\Entity\Utilisateur;
 use App\Entity\Partenaire;
+use App\Entity\Compte;
 
 /**
  * @Route("/api")
@@ -17,7 +20,7 @@ use App\Entity\Partenaire;
 class SecuriteController extends AbstractController
 {
     /**
-     * @Route("/register", name="register", methods={"POST"})
+     * @Route("/utilisateur/inserer", name="inserer-utilisateur", methods={"POST"})
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager)
     {
@@ -56,5 +59,54 @@ class SecuriteController extends AbstractController
             'message' => 'Vous devez renseigner les clés username et password'
         ];
         return new JsonResponse($data, 500);
+    }
+
+    /**
+     * @Route("/utilisateur/status/{id}", name="update", methods={"PUT"})
+     */
+    public function update(Request $request, SerializerInterface $serializer, Utilisateur $user, ValidatorInterface $validator, EntityManagerInterface $entityManager)
+    {
+        $userModif = $entityManager->getRepository(Utilisateur::class)->find($user->getId());
+        $data = json_decode($request->getContent());
+        $user->getLogin($data->username);
+            $user->getPassword();
+            $user->getPrenom();
+            $user->getNom();
+            $user->getEmail();
+            $user->getTel();
+            $user->getProfil();
+            $user->getRoles();
+            $user->getIdParte();
+        if ($user->getStatus()=="Actif") {
+            $userModif->SetStatus("Bloquer");
+        }else {
+            $userModif->SetStatus("Actif");
+        }
+        $errors = $validator->validate($userModif);
+        if(count($errors)) {
+            $errors = $serializer->serialize($errors, 'json');
+            return new Response($errors, 500, [
+                'Content-Type' => 'application/json'
+            ]);
+        }
+        $entityManager->flush();
+        $data = [
+            'status1' => 200,
+            'message1' => 'Le téléphone a bien été mis à jour'
+        ];
+        return new JsonResponse($data);
+
+    }
+
+    /**
+     * @Route("/login", name="login", methods={"POST"})
+     */
+    public function login(Request $request)
+    {
+        $user = $this->getUser();
+        return $this->json([
+            'username' => $user->getUsername(),
+            'roles' => $user->getRoles()
+        ]);
     }
 }
