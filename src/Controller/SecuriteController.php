@@ -69,14 +69,14 @@ class SecuriteController extends AbstractController
         $userModif = $entityManager->getRepository(Utilisateur::class)->find($user->getId());
         $data = json_decode($request->getContent());
         $user->getLogin($data->username);
-            $user->getPassword();
-            $user->getPrenom();
-            $user->getNom();
-            $user->getEmail();
-            $user->getTel();
-            $user->getProfil();
-            $user->getRoles();
-            $user->getIdParte();
+        $user->getPassword();
+        $user->getPrenom();
+        $user->getNom();
+        $user->getEmail();
+        $user->getTel();
+        $user->getProfil();
+        $user->getRoles();
+        $user->getIdParte();
         if ($user->getStatus()=="Actif") {
             $userModif->SetStatus("Bloquer");
         }else {
@@ -92,7 +92,7 @@ class SecuriteController extends AbstractController
         $entityManager->flush();
         $data = [
             'status1' => 200,
-            'message1' => 'Le téléphone a bien été mis à jour'
+            'message1' => 'Le statut de cet utilisateur a bien été mis à jour'
         ];
         return new JsonResponse($data);
 

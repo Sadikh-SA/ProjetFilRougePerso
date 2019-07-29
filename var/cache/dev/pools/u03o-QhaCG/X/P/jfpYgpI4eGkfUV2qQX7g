@@ -17,6 +17,7 @@
                         'bic',
                         'montant',
                         'partenaire',
+                        'depots',
                     ],
                 ],
             ],

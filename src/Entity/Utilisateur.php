@@ -59,7 +59,7 @@ class Utilisateur implements UserInterface
     private $profil;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(name="status", type="string", length=255)
      */
     private $status;
 
@@ -178,7 +178,7 @@ class Utilisateur implements UserInterface
     {
         $this->email = $email;
 
-        return $this;
+        return $this; 
     }
 
     public function getTel(): ?float

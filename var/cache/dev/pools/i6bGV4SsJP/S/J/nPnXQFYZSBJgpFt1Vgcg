@@ -11,6 +11,7 @@
                     [
                         'App\\Entity\\Compte',
                         'App\\Entity\\Partenaire',
+                        'App\\Entity\\Depot',
                     ],
                 ],
             ],
