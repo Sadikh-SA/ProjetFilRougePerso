@@ -26,7 +26,6 @@ class DepotController extends AbstractController
        $values = json_decode($request->getContent());
        if (isset($values->idCompte , $values->idPartenaire)) {
            $depot = new Depot();
-           $compte = new Compte();
            $depot ->setDatedepot(new \DateTime())
                   ->setMontantDepot($values->montantDepot);
                   $idcompte=$depot->setIdCompte($this->getDoctrine()->getRepository(Compte::class)->find($values->idCompte));

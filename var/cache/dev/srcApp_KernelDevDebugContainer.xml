@@ -415,11 +415,11 @@
         <argument type="service" id=".service_locator.CDOTD6..App\Controller\PartenaireController"/>
       </call>
     </service>
-    <service id="App\Controller\SecuriteController" class="App\Controller\SecuriteController" public="true" autowire="true" autoconfigure="true">
+    <service id="App\Controller\UtilisateurController" class="App\Controller\UtilisateurController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
-        <argument type="service" id=".service_locator.CDOTD6..App\Controller\SecuriteController"/>
+        <argument type="service" id=".service_locator.CDOTD6..App\Controller\UtilisateurController"/>
       </call>
     </service>
     <service id="App\Repository\CompteRepository" class="App\Repository\CompteRepository" autowire="true" autoconfigure="true">
@@ -2871,16 +2871,49 @@
     </service>
     <service id="security.access_map" class="Symfony\Component\Security\Http\AccessMap" public="false">
       <call method="add">
-        <argument type="service" id=".security.request_matcher.Ud1TEPV"/>
+        <argument type="service" id=".security.request_matcher.3pVYPLR"/>
         <argument type="collection">
-          <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+          <argument>ROLE_Super-Admin</argument>
         </argument>
         <argument>null</argument>
       </call>
       <call method="add">
-        <argument type="service" id=".security.request_matcher.cRNYaJ1"/>
+        <argument type="service" id=".security.request_matcher.9BjjA6F"/>
+        <argument type="collection"/>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.VXrY6jE"/>
         <argument type="collection">
-          <argument>IS_AUTHENTICATED_FULLY</argument>
+          <argument>ROLE_Super-Admin</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.mAu6s.5"/>
+        <argument type="collection">
+          <argument>ROLE_Super-Admin</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.3pVYPLR"/>
+        <argument type="collection">
+          <argument>ROLE_Admin-Partenaire</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.oC1UdNr"/>
+        <argument type="collection">
+          <argument>ROLE_Admin-Partenaire</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.Zf5DqP7"/>
+        <argument type="collection">
+          <argument>ROLE_Admin-Partenaire</argument>
         </argument>
         <argument>null</argument>
       </call>
@@ -3380,11 +3413,23 @@
         <argument key="security.firewall.map.context.login" type="service" id="security.firewall.map.context.login"/>
       </argument>
     </service>
-    <service id=".security.request_matcher.Ud1TEPV" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
-      <argument>^/api/login</argument>
+    <service id=".security.request_matcher.3pVYPLR" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/api/utilisateur/inserer</argument>
     </service>
-    <service id=".security.request_matcher.cRNYaJ1" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
-      <argument>^/api</argument>
+    <service id=".security.request_matcher.9BjjA6F" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/api/utilisateur/status roles: ROLE_Super-Admin</argument>
+    </service>
+    <service id=".security.request_matcher.VXrY6jE" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/api/compte/inserer</argument>
+    </service>
+    <service id=".security.request_matcher.mAu6s.5" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/api/partenaire/inserer</argument>
+    </service>
+    <service id=".security.request_matcher.oC1UdNr" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/api/utilisateur/status</argument>
+    </service>
+    <service id=".security.request_matcher.Zf5DqP7" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/api/depot/status</argument>
     </service>
     <service id="security.command.user_password_encoder" class="Symfony\Bundle\SecurityBundle\Command\UserPasswordEncoderCommand" public="false">
       <tag name="console.command" command="security:encode-password"/>
@@ -4561,9 +4606,9 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\PartenaireController" class="App\Controller\PartenaireController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\PartenaireController" class="App\Controller\PartenaireController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\PartenaireController" class="App\Controller\PartenaireController" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\SecuriteController" class="App\Controller\SecuriteController" autowire="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\SecuriteController" class="App\Controller\SecuriteController" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Controller\SecuriteController" class="App\Controller\SecuriteController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\UtilisateurController" class="App\Controller\UtilisateurController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\UtilisateurController" class="App\Controller\UtilisateurController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\UtilisateurController" class="App\Controller\UtilisateurController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CompteRepository" class="App\Repository\CompteRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\CompteRepository" class="App\Repository\CompteRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\DepotRepository" class="App\Repository\DepotRepository" autowire="true" abstract="true"/>
@@ -4756,19 +4801,19 @@
         <argument key="validator" type="service" id="validator"/>
       </argument>
     </service>
-    <service id=".service_locator.HCXYtgH" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.iiEpXiZ" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\CompteController::inserer" type="service" id=".service_locator.ZIsCxOI"/>
         <argument key="App\Controller\DepotController::inserer" type="service" id=".service_locator.ZIsCxOI"/>
         <argument key="App\Controller\PartenaireController::inserer" type="service" id=".service_locator.ZIsCxOI"/>
-        <argument key="App\Controller\SecuriteController::register" type="service" id=".service_locator.JBoVXlr"/>
-        <argument key="App\Controller\SecuriteController::update" type="service" id=".service_locator.nk9g.Cv"/>
+        <argument key="App\Controller\UtilisateurController::register" type="service" id=".service_locator.JBoVXlr"/>
+        <argument key="App\Controller\UtilisateurController::update" type="service" id=".service_locator.nk9g.Cv"/>
         <argument key="App\Controller\CompteController:inserer" type="service" id=".service_locator.ZIsCxOI"/>
         <argument key="App\Controller\DepotController:inserer" type="service" id=".service_locator.ZIsCxOI"/>
         <argument key="App\Controller\PartenaireController:inserer" type="service" id=".service_locator.ZIsCxOI"/>
-        <argument key="App\Controller\SecuriteController:register" type="service" id=".service_locator.JBoVXlr"/>
-        <argument key="App\Controller\SecuriteController:update" type="service" id=".service_locator.nk9g.Cv"/>
+        <argument key="App\Controller\UtilisateurController:register" type="service" id=".service_locator.JBoVXlr"/>
+        <argument key="App\Controller\UtilisateurController:update" type="service" id=".service_locator.nk9g.Cv"/>
       </argument>
     </service>
     <service id=".service_locator.LtnrEkg" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
@@ -4927,9 +4972,9 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.CDOTD6." method="withContext"/>
     </service>
-    <service id=".service_locator.CDOTD6..App\Controller\SecuriteController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
-      <tag name="container.service_locator_context" id="App\Controller\SecuriteController"/>
-      <argument>App\Controller\SecuriteController</argument>
+    <service id=".service_locator.CDOTD6..App\Controller\UtilisateurController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\UtilisateurController"/>
+      <argument>App\Controller\UtilisateurController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.CDOTD6." method="withContext"/>
     </service>
@@ -5037,12 +5082,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.HCXYtgH"/>
+      <argument type="service" id=".service_locator.iiEpXiZ"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.HCXYtgH"/>
+      <argument type="service" id=".service_locator.iiEpXiZ"/>
     </service>
     <service id="api_platform.swagger.normalizer.api_gateway.inner" class="ApiPlatform\Core\Swagger\Serializer\DocumentationNormalizer" public="false">
       <argument type="service" id="api_platform.metadata.resource.metadata_factory.cached"/>
@@ -5392,7 +5437,7 @@
     <service id="fos_rest.inflector" alias="fos_rest.inflector.doctrine"/>
     <service id="sensio_framework_extra.converter.doctrine.orm.expression_language" alias="sensio_framework_extra.converter.doctrine.orm.expression_language.default" public="false"/>
     <service id="sensio_framework_extra.security.expression_language" alias="sensio_framework_extra.security.expression_language.default" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.HCXYtgH"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.iiEpXiZ"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="api_platform.name_converter" alias="serializer.name_converter.metadata_aware"/>

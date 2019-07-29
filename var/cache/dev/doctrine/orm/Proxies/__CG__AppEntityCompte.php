@@ -64,10 +64,10 @@ class Compte extends \App\Entity\Compte implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'id', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'nom', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'codeBank', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'numComp', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'iban', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'bic', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'montant', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'partenaire'];
+            return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'id', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'nom', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'codeBank', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'numComp', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'iban', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'bic', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'montant', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'partenaire', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'depots'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'id', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'nom', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'codeBank', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'numComp', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'iban', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'bic', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'montant', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'partenaire'];
+        return ['__isInitialized__', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'id', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'nom', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'codeBank', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'numComp', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'iban', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'bic', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'montant', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'partenaire', '' . "\0" . 'App\\Entity\\Compte' . "\0" . 'depots'];
     }
 
     /**
@@ -340,6 +340,39 @@ class Compte extends \App\Entity\Compte implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPartenaire', [$partenaire]);
 
         return parent::setPartenaire($partenaire);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getDepots(): \Doctrine\Common\Collections\Collection
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDepots', []);
+
+        return parent::getDepots();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addDepot(\App\Entity\Depot $depot): \App\Entity\Compte
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addDepot', [$depot]);
+
+        return parent::addDepot($depot);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeDepot(\App\Entity\Depot $depot): \App\Entity\Compte
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeDepot', [$depot]);
+
+        return parent::removeDepot($depot);
     }
 
 }
