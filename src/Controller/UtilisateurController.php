@@ -66,16 +66,6 @@ class UtilisateurController extends AbstractController
     public function update(Request $request, SerializerInterface $serializer, Utilisateur $user, ValidatorInterface $validator, EntityManagerInterface $entityManager)
     {
         $userModif = $entityManager->getRepository(Utilisateur::class)->find($user->getId());
-        $data = json_decode($request->getContent());
-        $user->getLogin($data->username);
-        $user->getPassword();
-        $user->getPrenom();
-        $user->getNom();
-        $user->getEmail();
-        $user->getTel();
-        $user->getProfil();
-        $user->getRoles();
-        $user->getIdParte();
         if ($user->getStatus()=="Actif") {
             $userModif->SetStatus("Bloquer");
         }else {

@@ -14,15 +14,15 @@ class UtilisateurControllerTest extends WebTestCase
         ]);
         $crawler = $client->request('POST', '/api/utilisateur/inserer',[],[],['CONTENT_TYPE'=>"application/json"],
         '{
-            "username" : "laye1",
-            "password" : "laye",
-            "nom": "laye",
-            "prenom": "laye",
-            "email" : "laye@gmail.com",
-            "tel" : 784561112,
-            "profil" : "Utilisateur",
+            "username" : "mbacké1",
+            "password" : "Mbacké",
+            "nom": "Mbaye",
+            "prenom": "Mbacké",
+            "email" : "mbackémbaye1@gmail.com",
+            "tel" : 777878745,
+            "profil" : "Admin-Partenaire",
             "status" : "Actif",
-            "idParte" : 3
+            "idParte" : 4
         }');
         $rep = $client->getResponse();
         $this->assertSame(201,$client->getResponse()->getStatusCode());
@@ -36,12 +36,12 @@ class UtilisateurControllerTest extends WebTestCase
         ]);
         $crawler = $client->request('POST', '/api/utilisateur/inserer',[],[],['CONTENT_TYPE'=>"application/json"],
         '{
-            "username" : "200896",
-            "password" : "200896",
+            "username" : "45226",
+            "password" : "45226",
             "nom": ,
-            "prenom": "Ibrahima",
-            "email" : "guizzo@gmail.com",
-            "tel" : 704125763,
+            "prenom": "Asffez",
+            "email" : "ddfssz@gmail.com",
+            "tel" : 784561235,
             "profil" : "Utilisateur",
             "status" : "Actif",
             "idParte" : 3
