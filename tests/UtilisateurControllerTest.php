@@ -14,9 +14,31 @@ class UtilisateurControllerTest extends WebTestCase
         ]);
         $crawler = $client->request('POST', '/api/utilisateur/inserer',[],[],['CONTENT_TYPE'=>"application/json"],
         '{
-            "username" : "Guizzo",
-            "password" : "Guizzo",
-            "nom": "GUISSÉ",
+            "username" : "laye1",
+            "password" : "laye",
+            "nom": "laye",
+            "prenom": "laye",
+            "email" : "laye@gmail.com",
+            "tel" : 784561112,
+            "profil" : "Utilisateur",
+            "status" : "Actif",
+            "idParte" : 3
+        }');
+        $rep = $client->getResponse();
+        $this->assertSame(201,$client->getResponse()->getStatusCode());
+    }
+
+    public function testAjoutUserKO()
+    {
+        $client = static::createClient([], [
+            'PHP_AUTH_USER'=>'Sadikh',
+            'PHP_AUTH_PW' =>'Moimeme'
+        ]);
+        $crawler = $client->request('POST', '/api/utilisateur/inserer',[],[],['CONTENT_TYPE'=>"application/json"],
+        '{
+            "username" : "200896",
+            "password" : "200896",
+            "nom": ,
             "prenom": "Ibrahima",
             "email" : "guizzo@gmail.com",
             "tel" : 704125763,
@@ -25,6 +47,6 @@ class UtilisateurControllerTest extends WebTestCase
             "idParte" : 3
         }');
         $rep = $client->getResponse();
-        $this->assertSame(201,$client->getResponse()->getStatusCode());
+        $this->assertSame(400,$client->getResponse()->getStatusCode());
     }
 }
