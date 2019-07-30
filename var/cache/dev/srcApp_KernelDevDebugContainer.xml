@@ -2878,11 +2878,6 @@
         <argument>null</argument>
       </call>
       <call method="add">
-        <argument type="service" id=".security.request_matcher.9BjjA6F"/>
-        <argument type="collection"/>
-        <argument>null</argument>
-      </call>
-      <call method="add">
         <argument type="service" id=".security.request_matcher.VXrY6jE"/>
         <argument type="collection">
           <argument>ROLE_Super-Admin</argument>
@@ -2911,7 +2906,7 @@
         <argument>null</argument>
       </call>
       <call method="add">
-        <argument type="service" id=".security.request_matcher.Zf5DqP7"/>
+        <argument type="service" id=".security.request_matcher.sDzEDr_"/>
         <argument type="collection">
           <argument>ROLE_Admin-Partenaire</argument>
         </argument>
@@ -3416,9 +3411,6 @@
     <service id=".security.request_matcher.3pVYPLR" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
       <argument>^/api/utilisateur/inserer</argument>
     </service>
-    <service id=".security.request_matcher.9BjjA6F" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
-      <argument>^/api/utilisateur/status roles: ROLE_Super-Admin</argument>
-    </service>
     <service id=".security.request_matcher.VXrY6jE" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
       <argument>^/api/compte/inserer</argument>
     </service>
@@ -3428,8 +3420,8 @@
     <service id=".security.request_matcher.oC1UdNr" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
       <argument>^/api/utilisateur/status</argument>
     </service>
-    <service id=".security.request_matcher.Zf5DqP7" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
-      <argument>^/api/depot/status</argument>
+    <service id=".security.request_matcher.sDzEDr_" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/api/depot/inserer</argument>
     </service>
     <service id="security.command.user_password_encoder" class="Symfony\Bundle\SecurityBundle\Command\UserPasswordEncoderCommand" public="false">
       <tag name="console.command" command="security:encode-password"/>

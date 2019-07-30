@@ -50,9 +50,9 @@ security:
         # - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         # - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/api/utilisateur/inserer, roles: ROLE_Super-Admin }
-        - { path: ^/api/utilisateur/status roles: ROLE_Super-Admin }
+        # - { path: ^/api/utilisateur/status/{id} roles: ROLE_Super-Admin }
         - { path: ^/api/compte/inserer, roles: ROLE_Super-Admin }
         - { path: ^/api/partenaire/inserer, roles: ROLE_Super-Admin }
         - { path: ^/api/utilisateur/inserer, roles: ROLE_Admin-Partenaire }
         - { path: ^/api/utilisateur/status, roles: ROLE_Admin-Partenaire }
-        - { path: ^/api/depot/status, roles: ROLE_Admin-Partenaire }
+        - { path: ^/api/depot/inserer, roles: ROLE_Admin-Partenaire }
