@@ -21,7 +21,7 @@ class CompteController extends AbstractController
     {
         $values = json_decode($request->getContent());
         if(isset($values->numComp,$values->montant,$values->nom,$values->codeBank,$values->iban,$values->bic)) {
-            if ($values->montant>0 && is_numeric($values->montantDepot) && is_numeric($values->codeBank)) {
+            if ($values->montant>0 && is_numeric($values->montant) && is_numeric($values->codeBank)) {
                 $compte = new Compte();
                 $compte->setNom($values->nom)
                     ->setCodeBank($values->codeBank)
