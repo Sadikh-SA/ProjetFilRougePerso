@@ -6,6 +6,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource()
@@ -47,6 +48,8 @@ class Compte
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\GreaterThan(10000, message="Valeur entrée minimale est 10000.")
+     * @Assert\Positive
      */
     private $montant;
 

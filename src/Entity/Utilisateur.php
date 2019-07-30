@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UtilisateurRepository")
@@ -50,6 +51,8 @@ class Utilisateur implements UserInterface
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\GreaterThan(700000000, message="On ne peut pas faire un dépot de - 10000FCFA")
+     * @Assert\Positive
      */
     private $tel;
 

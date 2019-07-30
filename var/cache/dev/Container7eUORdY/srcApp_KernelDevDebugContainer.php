@@ -1,6 +1,6 @@
 <?php
 
-namespace Container9ahc8rN;
+namespace Container7eUORdY;
 
 use Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -597,14 +597,12 @@ class srcApp_KernelDevDebugContainer extends Container
             'App\\Repository\\DepotRepository' => ['privates', 'App\\Repository\\DepotRepository', 'getDepotRepositoryService.php', true],
             'App\\Repository\\PartenaireControllerRepository' => ['privates', 'App\\Repository\\PartenaireControllerRepository', 'getPartenaireControllerRepositoryService.php', true],
             'App\\Repository\\PartenaireRepository' => ['privates', 'App\\Repository\\PartenaireRepository', 'getPartenaireRepositoryService.php', true],
-            'App\\Repository\\UserRepository' => ['privates', 'App\\Repository\\UserRepository', 'getUserRepositoryService.php', true],
             'App\\Repository\\UtilisateurRepository' => ['privates', 'App\\Repository\\UtilisateurRepository', 'getUtilisateurRepositoryService.php', true],
         ], [
             'App\\Repository\\CompteRepository' => '?',
             'App\\Repository\\DepotRepository' => '?',
             'App\\Repository\\PartenaireControllerRepository' => '?',
             'App\\Repository\\PartenaireRepository' => '?',
-            'App\\Repository\\UserRepository' => '?',
             'App\\Repository\\UtilisateurRepository' => '?',
         ])));
 
@@ -714,9 +712,6 @@ class srcApp_KernelDevDebugContainer extends Container
         $instance->addListener('kernel.request', [0 => function () {
             return ($this->privates['fos_rest.body_listener'] ?? $this->getFosRest_BodyListenerService());
         }, 1 => 'onKernelRequest'], 10);
-        $instance->addListener('Partenaire', [0 => function () {
-            return ($this->privates['App\\EventSubscriber\\PartenaireSubscriber'] ?? ($this->privates['App\\EventSubscriber\\PartenaireSubscriber'] = new \App\EventSubscriber\PartenaireSubscriber()));
-        }, 1 => 'onPartenaire'], 0);
         $instance->addListener('kernel.response', [0 => function () {
             return ($this->privates['response_listener'] ?? ($this->privates['response_listener'] = new \Symfony\Component\HttpKernel\EventListener\ResponseListener('UTF-8')));
         }, 1 => 'onKernelResponse'], 0);
@@ -760,9 +755,6 @@ class srcApp_KernelDevDebugContainer extends Container
             return ($this->privates['session_listener'] ?? $this->getSessionListenerService());
         }, 1 => 'onFinishRequest'], 0);
         $instance->addListener('kernel.request', [0 => function () {
-            return ($this->privates['debug.debug_handlers_listener'] ?? $this->getDebug_DebugHandlersListenerService());
-        }, 1 => 'configure'], 2048);
-        $instance->addListener('console.command', [0 => function () {
             return ($this->privates['debug.debug_handlers_listener'] ?? $this->getDebug_DebugHandlersListenerService());
         }, 1 => 'configure'], 2048);
         $instance->addListener('kernel.exception', [0 => function () {

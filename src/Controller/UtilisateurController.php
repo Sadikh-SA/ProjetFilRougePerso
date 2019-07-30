@@ -18,40 +18,47 @@ use App\Entity\Partenaire;
  */
 class UtilisateurController extends AbstractController
 {
+
+    
     /**
      * @Route("/utilisateur/inserer", name="inserer-utilisateur", methods={"POST"})
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager)
     {
         $values = json_decode($request->getContent());
-        if(isset($values->username,$values->password)) {
-            $user = new Utilisateur();
-            $user->setLogin($values->username);
-            $user->setPassword($passwordEncoder->encodePassword($user, $values->password));
-            $user->setPrenom($values->prenom);
-            $user->setNom($values->nom);
-            $user->setEmail($values->email);
-            $user->setTel($values->tel);
-            $user->setProfil($values->profil);
-            if ($user->getProfil()=="Super-Admin") {
-                $user->setRoles(['ROLE_Super-Admin']);
-            }elseif ($user->getProfil()=="Admin-Partenaire") {
-                $user->setRoles(['ROLE_Admin-Partenaire']);
-            }elseif ($user->getProfil()=="Utilisateur") {
-                $user->setRoles(['ROLE_Utilisateur']);
+        if(isset($values->username,$values->password,$values->prenom,$values->nom,$values->email,$values->tel,$values->profil)) {
+            if (is_numeric($values->tel) && strlen($values->tel)==9) {
+                $user = new Utilisateur();
+                $user->setLogin($values->username);
+                $user->setPassword($passwordEncoder->encodePassword($user, $values->password));
+                $user->setPrenom($values->prenom);
+                $user->setNom($values->nom);
+                $user->setEmail($values->email);
+                $user->setTel($values->tel);
+                $user->setProfil($values->profil);
+                if ($user->getProfil()=="Super-Admin") {
+                    $user->setRoles(['ROLE_Super-Admin']);
+                }elseif ($user->getProfil()=="Admin-Partenaire") {
+                    $user->setRoles(['ROLE_Admin-Partenaire']);
+                }elseif ($user->getProfil()=="Utilisateur") {
+                    $user->setRoles(['ROLE_Utilisateur']);
+                }
+                $idcompt=$user->setIdParte($this->getDoctrine()->getRepository(Partenaire::class)->find($values->idParte));
+                $user->setIdParte($idcompt->getIdParte());
+                $user->setStatus("Actif");
+                $entityManager->persist($user);
+                $entityManager->flush();
+
+                $data = [
+                    'status' => 201,
+                    'message' => 'L\'utilisateur a été créé'
+                ];
+
+                return new JsonResponse($data, 201);
+            } else {
+                # code...
             }
-            $idcompt=$user->setIdParte($this->getDoctrine()->getRepository(Partenaire::class)->find($values->idParte));
-            $user->setIdParte($idcompt->getIdParte());
-            $user->setStatus($values->status);
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            $data = [
-                'status' => 201,
-                'message' => 'L\'utilisateur a été créé'
-            ];
-
-            return new JsonResponse($data, 201);
+            
         }
         $data = [
             'status' => 500,
@@ -65,11 +72,12 @@ class UtilisateurController extends AbstractController
      */
     public function update(Request $request, SerializerInterface $serializer, Utilisateur $user, ValidatorInterface $validator, EntityManagerInterface $entityManager)
     {
+        $actif = "Actif";
         $userModif = $entityManager->getRepository(Utilisateur::class)->find($user->getId());
-        if ($user->getStatus()=="Actif") {
+        if ($user->getStatus()==$actif) {
             $userModif->SetStatus("Bloquer");
         }else {
-            $userModif->SetStatus("Actif");
+            $userModif->SetStatus($actif);
         }
         $errors = $validator->validate($userModif);
         if(count($errors)) {

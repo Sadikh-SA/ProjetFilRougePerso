@@ -26,7 +26,7 @@ class Partenaire
     private $regCom;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", unique=true)
      */
     private $ninea;
 

@@ -20,29 +20,41 @@ class CompteController extends AbstractController
     public function inserer(Request $request, EntityManagerInterface $entityManager)
     {
         $values = json_decode($request->getContent());
-        if(isset($values->numComp,$values->montant)) {
-            $compte = new Compte();
-            $compte->setNom($values->nom)
-                   ->setCodeBank($values->codeBank)
-                   ->setNumComp($values->numComp)
-                   ->setIban($values->iban)
-                   ->setBic($values->bic)
-                   ->setMontant($values->montant);
-            $entityManager->persist($compte);
-            $entityManager->flush();
+        if(isset($values->numComp,$values->montant,$values->nom,$values->codeBank,$values->iban,$values->bic)) {
+            if ($values->montant>0 && is_numeric($values->montantDepot) && is_numeric($values->codeBank)) {
+                $compte = new Compte();
+                $compte->setNom($values->nom)
+                    ->setCodeBank($values->codeBank)
+                    ->setNumComp($values->numComp)
+                    ->setIban($values->iban)
+                    ->setBic($values->bic)
+                    ->setMontant($values->montant);
+                $entityManager->persist($compte);
+                $entityManager->flush();
 
-            $data = [
-                'status' => 201,
-                'message' => 'L\'utilisateur a été créé'
-            ];
+                $data = [
+                    'status0' => 201,
+                    'message0' => 'Le compte a été créé'
+                ];
 
-            return new JsonResponse($data, 201);
+                return new JsonResponse($data, 201);
+            }
+            else {
+                $data = [
+                    'status' => 400,
+                    'message' => 'Le montant doit être positif et est un double donc numérique'
+                ];
+                return new JsonResponse($data, 400);
+            }
         }
-        $data = [
-            'status' => 500,
-            'message' => 'Vous devez renseigner les clés username et password'
-        ];
-        return new JsonResponse($data, 500);
+        else {
+            $data = [
+                'status' => 500,
+                'message' => 'Vous devez Renseignez tous les champs'
+            ];
+            return new JsonResponse($data, 500);
+        }
+        
     }
 
 }
