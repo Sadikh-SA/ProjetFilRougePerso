@@ -11,6 +11,7 @@ return [
         '/api/compte/inserer' => [[['_route' => 'inserer-compte', '_controller' => 'App\\Controller\\CompteController::inserer'], null, ['POST' => 0, 'GET' => 1], null, false, false, null]],
         '/api/depot/inserer' => [[['_route' => 'depot', '_controller' => 'App\\Controller\\DepotController::inserer'], null, ['POST' => 0], null, false, false, null]],
         '/api/partenaire/inserer' => [[['_route' => 'inserer-partenaire', '_controller' => 'App\\Controller\\PartenaireController::inserer'], null, ['POST' => 0], null, false, false, null]],
+        '/api/register' => [[['_route' => 'register', '_controller' => 'App\\Controller\\UserController::register'], null, ['POST' => 0], null, false, false, null]],
         '/api/utilisateur/inserer' => [[['_route' => 'inserer-utilisateur', '_controller' => 'App\\Controller\\UtilisateurController::register'], null, ['POST' => 0], null, false, false, null]],
         '/api/login' => [
             [['_route' => 'login', '_controller' => 'App\\Controller\\UtilisateurController::login'], null, ['POST' => 0], null, false, false, null],

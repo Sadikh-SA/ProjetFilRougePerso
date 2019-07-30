@@ -3,25 +3,28 @@
 namespace App\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-
+use App\Entity\Utilisateur;
 class UtilisateurControllerTest extends WebTestCase
 {
     public function testAjoutUserOK()
     {
-        $client = static::createClient();
+        $client = static::createClient([], [
+            'PHP_AUTH_USER'=>'Sadikh',
+            'PHP_AUTH_PW' =>'Moimeme'
+        ]);
         $crawler = $client->request('POST', '/api/utilisateur/inserer',[],[],['CONTENT_TYPE'=>"application/json"],
         '{
-            "username" : "Saliou",
-            "password" : "Saliou",
-            "nom": "GNING",
-            "prenom": "Saliou",
-            "email" : "ngingsaliou@gmail.com",
-            "tel" : 781542387,
-            "profil" : "Admin-Partenaire",
+            "username" : "Guizzo",
+            "password" : "Guizzo",
+            "nom": "GUISSÉ",
+            "prenom": "Ibrahima",
+            "email" : "guizzo@gmail.com",
+            "tel" : 704125763,
+            "profil" : "Utilisateur",
             "status" : "Actif",
             "idParte" : 3
         }');
         $rep = $client->getResponse();
-        $this->assertEquals(201,$rep->getStatusCode());
+        $this->assertSame(201,$client->getResponse()->getStatusCode());
     }
 }

@@ -6,6 +6,7 @@ return [
     'inserer-compte' => [[], ['_controller' => 'App\\Controller\\CompteController::inserer'], [], [['text', '/api/compte/inserer']], [], []],
     'depot' => [[], ['_controller' => 'App\\Controller\\DepotController::inserer'], [], [['text', '/api/depot/inserer']], [], []],
     'inserer-partenaire' => [[], ['_controller' => 'App\\Controller\\PartenaireController::inserer'], [], [['text', '/api/partenaire/inserer']], [], []],
+    'register' => [[], ['_controller' => 'App\\Controller\\UserController::register'], [], [['text', '/api/register']], [], []],
     'inserer-utilisateur' => [[], ['_controller' => 'App\\Controller\\UtilisateurController::register'], [], [['text', '/api/utilisateur/inserer']], [], []],
     'update' => [['id'], ['_controller' => 'App\\Controller\\UtilisateurController::update'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/utilisateur/status']], [], []],
     'login' => [[], ['_controller' => 'App\\Controller\\UtilisateurController::login'], [], [['text', '/api/login']], [], []],
