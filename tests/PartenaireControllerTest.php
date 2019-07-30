@@ -14,9 +14,9 @@ class PartenaireControllerTest extends WebTestCase
         ]);
         $crawler = $client->request('POST', '/api/partenaire/inserer',[],[],['CONTENT_TYPE'=>"application/json"],
         '{
-            "regCom":"MDSJ54",
-            "ninea": "78524553685",
-            "localisation": "tHIAROYE",
+            "regCom":"AZERTY",
+            "ninea": "77788895222314",
+            "localisation": "Keur Massar",
             "domaine": "Numérique",
             "idCompte": 2
         }');
@@ -32,8 +32,8 @@ class PartenaireControllerTest extends WebTestCase
         ]);
         $crawler = $client->request('POST', '/api/partenaire/inserer',[],[],['CONTENT_TYPE'=>"application/json"],
         '{
-            "regCom":"MCdc54",
-            "ninea": "1651124525000",
+            "regCom":"QSDGF",
+            "ninea": "7522555MLKSK",
             "localisation": ,
             "domaine": "Numérique",
             "idCompte": 

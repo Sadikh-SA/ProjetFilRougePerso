@@ -32,7 +32,6 @@ class DepotController extends AbstractController
                   $depot->setIdCompte($idcompte->getIdCompte());
                   $idparte=$depot->setIdPartenaire($this->getDoctrine()->getRepository(Partenaire::class)->find($values->idPartenaire));
                   $depot->setIdPartenaire($idparte->getIdPartenaire());
-                  var_dump($idcompte->getIdCompte()->getMontant());
                   $idcompte->getIdCompte()->setMontant($idcompte->getIdCompte()->getMontant()+$values->montantDepot);
            $entityManager->persist($depot);
            $entityManager->flush();
