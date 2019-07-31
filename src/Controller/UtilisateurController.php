@@ -42,6 +42,13 @@ class UtilisateurController extends AbstractController
                     $user->setRoles(['ROLE_Admin-Partenaire']);
                 }elseif ($user->getProfil()=="Utilisateur") {
                     $user->setRoles(['ROLE_Utilisateur']);
+                }else {
+                    $data = [
+                        'status1' => 405,
+                        'message1' => 'Ce profil n\'existe pas c\'est soite Super-Admin ou Admin-Partenaire ou Utilisateur.Il faut respecter la casse'
+                    ];
+    
+                    return new JsonResponse($data, 405);
                 }
                 $idcompt=$user->setIdParte($this->getDoctrine()->getRepository(Partenaire::class)->find($values->idParte));
                 $user->setIdParte($idcompt->getIdParte());
@@ -50,13 +57,18 @@ class UtilisateurController extends AbstractController
                 $entityManager->flush();
 
                 $data = [
-                    'status' => 201,
-                    'message' => 'L\'utilisateur a été créé'
+                    'status0' => 201,
+                    'message0' => 'L\'utilisateur a été créé'
                 ];
 
                 return new JsonResponse($data, 201);
             } else {
-                # code...
+                $data = [
+                    'status' => 400,
+                    'message' => 'Le numéro de téléphone est un numérique et doit avoir 9 caratères'
+                ];
+
+                return new JsonResponse($data, 400);
             }
             
         }
