@@ -13,6 +13,11 @@
                 'name' => [
                     'update',
                 ],
+                'requirements' => [
+                    [
+                        'id' => '\\d+',
+                    ],
+                ],
                 'methods' => [
                     [
                         'PUT',

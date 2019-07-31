@@ -8,7 +8,7 @@ return [
     'depot' => [[], ['_controller' => 'App\\Controller\\DepotController::inserer'], [], [['text', '/api/depot/inserer']], [], []],
     'inserer-partenaire' => [[], ['_controller' => 'App\\Controller\\PartenaireController::inserer'], [], [['text', '/api/partenaire/inserer']], [], []],
     'inserer-utilisateur' => [[], ['_controller' => 'App\\Controller\\UtilisateurController::register'], [], [['text', '/api/utilisateur/inserer']], [], []],
-    'update' => [['id'], ['_controller' => 'App\\Controller\\UtilisateurController::update'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/utilisateur/status']], [], []],
+    'update' => [['id'], ['_controller' => 'App\\Controller\\UtilisateurController::update'], ['id' => '\\d+'], [['variable', '/', '\\d+', 'id', true], ['text', '/api/utilisateur/status']], [], []],
     'login' => [[], ['_controller' => 'App\\Controller\\UtilisateurController::login'], [], [['text', '/api/login']], [], []],
     'api_entrypoint' => [['index', '_format'], ['_controller' => 'api_platform.action.entrypoint', '_format' => '', '_api_respond' => 'true', 'index' => 'index'], ['index' => 'index'], [['variable', '.', '[^/]++', '_format', true], ['variable', '/', 'index', 'index', true], ['text', '/api']], [], []],
     'api_doc' => [['_format'], ['_controller' => 'api_platform.action.documentation', '_format' => '', '_api_respond' => 'true'], [], [['variable', '.', '[^/]++', '_format', true], ['text', '/api/docs']], [], []],
